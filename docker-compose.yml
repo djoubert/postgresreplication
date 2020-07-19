@@ -13,9 +13,11 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
     restart: always
 
-  replicate-db:
-    container_name: replicate-db
+  replica-db:
+    container_name: replica-db
     image: postgres:latest
+    depends_on: 
+      - master-db
     ports:
       - "15433:5432"
     volumes:
@@ -23,3 +25,8 @@ services:
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     restart: always
+
+networks:
+ default:
+   external:
+     name: test
