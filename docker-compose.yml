@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+
+  master-db:
+    container_name: master-db
+    image: postgres:latest
+    ports:
+      - "15432:5432"
+    volumes:
+      - "/var/docker_volumes/postgres_master:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    restart: always
+
+  replicate-db:
+    container_name: replicate-db
+    image: postgres:latest
+    ports:
+      - "15433:5432"
+    volumes:
+      - "/var/docker_volumes/postgres_replica:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    restart: always
